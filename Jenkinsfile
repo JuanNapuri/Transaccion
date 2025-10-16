@@ -1,0 +1,25 @@
+pipeline {
+agent any
+
+stages {
+stage('Preparar entorno') {
+steps {
+echo "Creando entorno virtual..."
+bat '"C:\\Users\\Juanpa\\AppData\\Local\\Programs\\Python\\Python312\\python.exe" -m venv venv'
+bat 'venv\\Scripts\\activate && pip install -r requirements.txt'
+}
+}
+
+stage('Ejecutar script') {
+steps {
+echo "Ejecutando script principal..."
+bat 'venv\\Scripts\\activate && python E:\\CURSO\\CERTUS\\DATAOPS\\CLASE-2\\PARCIAL\\TRANSACCION.PY'
+}
+}
+}
+
+post {
+success { echo "✅ Pipeline completado con éxito" }
+failure { echo "❌ Error en alguna etapa del pipeline" }
+}
+}
